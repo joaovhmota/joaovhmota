@@ -1,41 +1,23 @@
-import { useI18n } from '../i18n';
+import { useI18n } from '../i18n/useI18n';
+import { SECTION_ID } from '../sections';
+import Section from './Section';
 
 export default function Skills() {
   const { t } = useI18n();
   return (
-    <section id="skills">
-      <div className="container reveal">
-        <p className="section-label">{t.skills.label}</p>
-        <h2>{t.skills.title}</h2>
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-            gap: 24,
-          }}
-        >
-          {t.skills.groups.map((g) => (
-            <div
-              key={g.title}
-              style={{
-                border: '1px solid var(--border)',
-                borderRadius: 12,
-                padding: 24,
-                background: 'var(--bg-elevated)',
-              }}
-            >
-              <h3 style={{ fontSize: 15, marginBottom: 16, color: 'var(--accent)' }}>{g.title}</h3>
-              <ul style={{ listStyle: 'none', display: 'grid', gap: 8 }}>
-                {g.items.map((item) => (
-                  <li key={item} style={{ color: 'var(--text-muted)', fontSize: 14 }}>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
+    <Section id={SECTION_ID.skills} label={t.skills.label} title={t.skills.title}>
+      <div className="card-grid">
+        {t.skills.groups.map((group) => (
+          <div key={group.title} className="card">
+            <h3 className="card-title">{group.title}</h3>
+            <ul className="card-list">
+              {group.items.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </div>
+        ))}
       </div>
-    </section>
+    </Section>
   );
 }

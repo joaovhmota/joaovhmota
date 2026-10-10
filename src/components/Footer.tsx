@@ -1,4 +1,5 @@
-import { useI18n } from '../i18n';
+import { useI18n } from '../i18n/useI18n';
+import { site } from '../site';
 
 export default function Footer() {
   const { lang, setLang, t } = useI18n();
@@ -15,8 +16,8 @@ export default function Footer() {
         justifyItems: 'center',
       }}
     >
-      <span>© 2026 João Vinícius Hinkeldey Mota · {t.footer.rights}</span>
-      <span style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+      <span>© 2026 {site.name} · {site.location}</span>
+      <span role="group" aria-label={t.footer.switcher} style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
         {(['pt-BR', 'en-US'] as const).map((l, i) => (
           <span key={l} style={{ display: 'flex', gap: 8 }}>
             {i > 0 && <span>·</span>}

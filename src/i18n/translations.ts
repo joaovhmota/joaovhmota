@@ -1,8 +1,8 @@
-import { createContext, useContext } from 'react';
+import type { SectionId } from '../sections';
 
 export type Lang = 'pt-BR' | 'en-US';
 
-interface Role {
+export interface Role {
   company: string;
   role: string;
   period: string;
@@ -10,9 +10,9 @@ interface Role {
   bullets: string[];
 }
 
-interface Locale {
-  nav: { sobre: string; skills: string; experiencia: string; contato: string };
-  hero: { subtitle: string };
+export interface Locale {
+  nav: Record<SectionId, string>;
+  hero: { subtitle: string; resume: string };
   about: { label: string; title: string; text: string };
   skills: {
     label: string;
@@ -21,13 +21,13 @@ interface Locale {
   };
   experience: { label: string; title: string; roles: Role[] };
   contact: { label: string; title: string; email: string; linkedin: string };
-  footer: { rights: string; switcher: string };
+  footer: { switcher: string };
 }
 
 export const translations: Record<Lang, Locale> = {
   'pt-BR': {
     nav: { sobre: 'Sobre', skills: 'Skills', experiencia: 'Experiência', contato: 'Contato' },
-    hero: { subtitle: 'DevOps Analyst | SRE & Engenharia de Plataforma' },
+    hero: { subtitle: 'DevOps Analyst | SRE & Engenharia de Plataforma', resume: 'Baixar currículo' },
     about: {
       label: 'Sobre',
       title: 'Da aplicação à plataforma.',
@@ -106,11 +106,11 @@ export const translations: Record<Lang, Locale> = {
       email: 'Email',
       linkedin: 'LinkedIn',
     },
-    footer: { rights: 'Pomerode, SC', switcher: 'Idioma' },
+    footer: { switcher: 'Idioma' },
   },
   'en-US': {
     nav: { sobre: 'About', skills: 'Skills', experiencia: 'Experience', contato: 'Contact' },
-    hero: { subtitle: 'DevOps Analyst | SRE & Platform Engineering' },
+    hero: { subtitle: 'DevOps Analyst | SRE & Platform Engineering', resume: 'Download resume' },
     about: {
       label: 'About',
       title: 'From application to platform.',
@@ -189,20 +189,8 @@ export const translations: Record<Lang, Locale> = {
       email: 'Email',
       linkedin: 'LinkedIn',
     },
-    footer: { rights: 'Pomerode, SC', switcher: 'Language' },
+    footer: { switcher: 'Language' },
   },
 };
 
 export type Translations = Locale;
-
-const I18nContext = createContext<{ lang: Lang; setLang: (l: Lang) => void; t: Translations }>({
-  lang: 'pt-BR',
-  setLang: () => {},
-  t: translations['pt-BR'],
-});
-
-export const I18nProvider = I18nContext.Provider;
-
-export function useI18n() {
-  return useContext(I18nContext);
-}

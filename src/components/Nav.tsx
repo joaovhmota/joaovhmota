@@ -1,5 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
-import { useI18n } from '../i18n';
+import { useI18n } from '../i18n/useI18n';
+import { SECTION_ID } from '../sections';
+
+const NAV_ITEMS = [SECTION_ID.about, SECTION_ID.skills, SECTION_ID.experience, SECTION_ID.contact] as const;
 
 function scrollTo(id: string) {
   document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
@@ -49,12 +52,7 @@ export default function Nav() {
           color: 'var(--text-muted)',
         }}
       >
-        {([
-          ['sobre', t.nav.sobre],
-          ['skills', t.nav.skills],
-          ['experiencia', t.nav.experiencia],
-          ['contato', t.nav.contato],
-        ] as const).map(([id, label]) => (
+        {NAV_ITEMS.map((id) => (
           <button
             key={id}
             onClick={() => scrollTo(id)}
@@ -67,7 +65,7 @@ export default function Nav() {
               padding: 0,
             }}
           >
-            {label}
+            {t.nav[id]}
           </button>
         ))}
       </nav>

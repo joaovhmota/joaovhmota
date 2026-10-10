@@ -1,7 +1,31 @@
-import { useI18n } from '../i18n';
+import { useI18n } from '../i18n/useI18n';
+import { site } from '../site';
+
+function getFilename(url: string): string {
+  return decodeURIComponent(url.split('/').pop() ?? 'curriculo.pdf');
+}
 
 export default function Hero() {
-  const { t } = useI18n();
+  const { lang, t } = useI18n();
+
+  const downloadResume = async () => {
+    try {
+      const res = await fetch(site.resume[lang]);
+      if (!res.ok) throw new Error('Failed to fetch resume');
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = getFilename(site.resume[lang]);
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    } catch {
+      window.open(site.resume[lang], '_blank');
+    }
+  };
+
   return (
     <section
       id="top"
@@ -38,7 +62,7 @@ export default function Hero() {
             margin: '0 auto',
           }}
         >
-          João Vinícius Hinkeldey Mota
+          {site.name}
         </h1>
         <p
           className="hero-sub"
@@ -46,6 +70,16 @@ export default function Hero() {
         >
           {t.hero.subtitle}
         </p>
+        <a
+          href={site.resume[lang]}
+          className="btn"
+          onClick={(e) => {
+            e.preventDefault();
+            void downloadResume();
+          }}
+        >
+          {t.hero.resume}
+        </a>
       </div>
     </section>
   );

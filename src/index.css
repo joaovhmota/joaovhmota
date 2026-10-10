@@ -15,6 +15,8 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 html {
@@ -28,11 +30,6 @@ body {
   font-family: 'Inter Variable', 'Inter', system-ui, sans-serif;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
-}
-
-::selection {
-  background: var(--accent-dim);
-  color: var(--accent);
 }
 
 .container {
@@ -64,6 +61,52 @@ h2 {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+.card {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  background: var(--bg-elevated);
+}
+
+.card--spacious {
+  padding: 28px;
+}
+
+.card--highlight {
+  border-color: var(--accent);
+  background: var(--accent-dim);
+}
+
+.card--row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  border-radius: 10px;
+  font-size: 15px;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 24px;
+}
+
+.card-title {
+  font-size: 15px;
+  margin-bottom: 16px;
+  color: var(--accent);
+}
+
+.card-list {
+  list-style: none;
+  display: grid;
+  gap: 8px;
+  color: var(--text-muted);
+  font-size: 14px;
 }
 
 /* Reveal on scroll */
@@ -111,4 +154,23 @@ a {
 .hero-sub {
   opacity: 0;
   animation: fadeUp 0.8s ease 0.3s forwards;
+}
+
+.btn {
+  display: inline-block;
+  margin-top: 32px;
+  padding: 12px 24px;
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  background: var(--accent-dim);
+  color: var(--accent);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.btn:hover {
+  background: var(--accent);
+  color: var(--bg);
 }
