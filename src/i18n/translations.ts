@@ -10,32 +10,56 @@ export interface Role {
   bullets: string[];
 }
 
+export interface Fact {
+  label: string;
+  value: string;
+}
+
 export interface Locale {
   nav: Record<SectionId, string>;
-  hero: { subtitle: string; resume: string };
-  about: { label: string; title: string; text: string };
+  hero: { eyebrow: string; subtitle: string; resume: string; meta: string[] };
+  about: { label: string; title: string; text: string; facts: Fact[] };
   skills: {
     label: string;
     title: string;
     groups: { title: string; items: string[] }[];
   };
   experience: { label: string; title: string; roles: Role[] };
-  contact: { label: string; title: string; email: string; linkedin: string };
+  project: {
+    label: string;
+    title: string;
+    lead: string;
+    name: string;
+    description: string;
+    stack: string[];
+    link: string;
+  };
+  contact: { label: string; title: string; email: string; linkedin: string; note: string };
   footer: { switcher: string };
 }
 
 export const translations: Record<Lang, Locale> = {
   'pt-BR': {
-    nav: { sobre: 'Sobre', skills: 'Skills', experiencia: 'Experiência', contato: 'Contato' },
-    hero: { subtitle: 'DevOps Analyst | SRE & Engenharia de Plataforma', resume: 'Baixar currículo' },
+    nav: { sobre: 'Sobre', skills: 'Skills', experiencia: 'Experiência', projeto: 'Projeto', contato: 'Contato' },
+    hero: {
+      eyebrow: 'Analista DevOps / SRE / Engenharia de Plataforma',
+      subtitle: 'Eu construo e mantenho a parte do sistema que ninguém percebe até ela parar.',
+      resume: 'Baixar currículo',
+      meta: ['Pomerode, SC', 'Quick Soft Tecnologia'],
+    },
     about: {
       label: 'Sobre',
-      title: 'Da aplicação à plataforma.',
-      text: 'Comecei minha carreira como desenvolvedor full-stack, trabalhando com C#, .NET, ASP.NET MVC, JavaScript, Vue.js, React e SQL com Oracle. Construí sistemas internos e integrações bancárias, e foi nesse caminho que me apaixonei por automação e infraestrutura. Hoje atuo com DevOps: containers com Docker e Kubernetes, pipelines de CI/CD no Azure DevOps, monitoramento com Prometheus, Grafana, PRTG e ElasticSearch, e cloud na Oracle Cloud Infrastructure (OCI). O que mais gosto é transformar processos manuais em fluxos confiáveis.',
+      title: 'Da tela ao pipeline.',
+      text: 'Comecei escrevendo tela. Hoje escrevo pipeline. O que mudou foi o alcance, não o vício: ver o negócio rodar sem ninguém apertando botão. Passei por C#, .NET, Vue e React até chegar em containers, Terraform e observabilidade, e ali encontrei o trabalho que faço de olho fechado: transformar processo manual em fluxo confiável, documentado o suficiente para o próximo não sofrer.',
+      facts: [
+        { label: 'Base', value: 'Pomerode, SC' },
+        { label: 'Hoje', value: 'Analista DevOps na Quick Soft' },
+        { label: 'Desde', value: '2022 em software' },
+      ],
     },
     skills: {
       label: 'Skills',
-      title: 'Stack',
+      title: 'O que eu coloco em produção.',
       groups: [
         { title: 'Cloud & Containers', items: ['Oracle Cloud Infrastructure (OCI)', 'Kubernetes', 'Docker'] },
         { title: 'IaC & Entrega', items: ['Terraform', 'Azure DevOps (Boards, Repos, Pipelines, Artifacts)', 'CI/CD', 'GMUDs'] },
@@ -45,12 +69,12 @@ export const translations: Record<Lang, Locale> = {
     },
     experience: {
       label: 'Experiência',
-      title: 'Trajetória',
+      title: 'O caminho até aqui.',
       roles: [
         {
           company: 'Quick Soft Tecnologia',
           role: 'Analista de DevOps Júnior',
-          period: 'mar 2026 · Atual',
+          period: 'mar 2026 -> atual',
           highlight: true,
           bullets: [
             'Containerização e orquestração com Docker e Kubernetes',
@@ -63,7 +87,7 @@ export const translations: Record<Lang, Locale> = {
         {
           company: 'Quick Soft Tecnologia',
           role: 'Desenvolvedor de Software Pleno',
-          period: 'nov 2025 · mar 2026',
+          period: 'nov 2025 -> mar 2026',
           bullets: [
             'Full-stack com C#, .NET, ASP.NET MVC, JavaScript, Vue.js, ReactJS e SQL/Oracle',
             'Integrações bancárias: arquivos de remessa/retorno e conciliação financeira',
@@ -73,7 +97,7 @@ export const translations: Record<Lang, Locale> = {
         {
           company: 'Quick Soft Tecnologia',
           role: 'Desenvolvedor de Software Júnior',
-          period: 'jan 2023 · nov 2025',
+          period: 'jan 2023 -> nov 2025',
           bullets: [
             'Desenvolvimento full-stack de sistemas internos e integrações bancárias',
             'Integração de sistemas para automatizar fluxos de dados',
@@ -83,7 +107,7 @@ export const translations: Record<Lang, Locale> = {
         {
           company: 'Quick Soft Tecnologia',
           role: 'Aprendiz de Desenvolvedor de Software',
-          period: 'jun 2022 · jan 2023',
+          period: 'jun 2022 -> jan 2023',
           bullets: [
             'Primeira experiência profissional: ferramentas internas e produtos para clientes',
             'APIs, OOP, Design Patterns e Scrum com Git e Azure DevOps',
@@ -92,7 +116,7 @@ export const translations: Record<Lang, Locale> = {
         {
           company: 'JMA Tecnologia LTDA',
           role: 'Desenvolvedor Mobile (Freelancer)',
-          period: 'jul 2025 · nov 2025',
+          period: 'jul 2025 -> nov 2025',
           bullets: [
             'Manutenção e evolução de dois apps mobile em React Native',
             'Correção de bugs, novas features e melhoria de UI/UX, 100% remoto',
@@ -100,25 +124,46 @@ export const translations: Record<Lang, Locale> = {
         },
       ],
     },
+    project: {
+      label: 'Projeto',
+      title: 'Um projeto, sem vitrine.',
+      lead: 'Prefiro mostrar um do que listar dez.',
+      name: 'Este site',
+      description:
+        'Meu laboratório público: React 19, TypeScript e teimosia com performance. Sem template, sem page builder, sem framework de UI.',
+      stack: ['React 19', 'TypeScript', 'Vite', 'Cloudflare Pages'],
+      link: 'Ver o código',
+    },
     contact: {
       label: 'Contato',
-      title: 'Vamos conversar.',
+      title: 'Tem um processo manual para matar?',
       email: 'Email',
       linkedin: 'LinkedIn',
+      note: 'Respondo em português e inglês.',
     },
     footer: { switcher: 'Idioma' },
   },
   'en-US': {
-    nav: { sobre: 'About', skills: 'Skills', experiencia: 'Experience', contato: 'Contact' },
-    hero: { subtitle: 'DevOps Analyst | SRE & Platform Engineering', resume: 'Download resume' },
+    nav: { sobre: 'About', skills: 'Skills', experiencia: 'Experience', projeto: 'Project', contato: 'Contact' },
+    hero: {
+      eyebrow: 'DevOps Analyst / SRE / Platform Engineering',
+      subtitle: 'I build and keep alive the part of the system nobody notices until it stops.',
+      resume: 'Download resume',
+      meta: ['Pomerode, Brazil', 'Quick Soft Tecnologia'],
+    },
     about: {
       label: 'About',
-      title: 'From application to platform.',
-      text: 'I started my career as a full-stack developer, working with C#, .NET, ASP.NET MVC, JavaScript, Vue.js, React and SQL with Oracle. I built internal systems and banking integrations, and along the way I fell in love with automation and infrastructure. Today I work with DevOps: containers with Docker and Kubernetes, CI/CD pipelines on Azure DevOps, monitoring with Prometheus, Grafana, PRTG and ElasticSearch, and cloud on Oracle Cloud Infrastructure (OCI). What I enjoy most is turning manual processes into reliable workflows.',
+      title: 'From screens to pipelines.',
+      text: 'I started out writing screens. Today I write pipelines. What changed was the reach, not the itch: watching the business run without anyone pressing a button. I went through C#, .NET, Vue and React until I landed on containers, Terraform and observability, and there I found the work I do with my eyes closed: turning manual processes into reliable flows, documented well enough that the next person does not suffer.',
+      facts: [
+        { label: 'Base', value: 'Pomerode, Brazil' },
+        { label: 'Now', value: 'DevOps Analyst at Quick Soft' },
+        { label: 'Since', value: '2022 in software' },
+      ],
     },
     skills: {
       label: 'Skills',
-      title: 'Stack',
+      title: 'What I put into production.',
       groups: [
         { title: 'Cloud & Containers', items: ['Oracle Cloud Infrastructure (OCI)', 'Kubernetes', 'Docker'] },
         { title: 'IaC & Delivery', items: ['Terraform', 'Azure DevOps (Boards, Repos, Pipelines, Artifacts)', 'CI/CD', 'GMUDs'] },
@@ -128,12 +173,12 @@ export const translations: Record<Lang, Locale> = {
     },
     experience: {
       label: 'Experience',
-      title: 'Journey',
+      title: 'The road so far.',
       roles: [
         {
           company: 'Quick Soft Tecnologia',
           role: 'Junior DevOps Analyst',
-          period: 'Mar 2026 · Present',
+          period: 'Mar 2026 -> Present',
           highlight: true,
           bullets: [
             'Containerization and orchestration with Docker and Kubernetes',
@@ -146,7 +191,7 @@ export const translations: Record<Lang, Locale> = {
         {
           company: 'Quick Soft Tecnologia',
           role: 'Mid-level Software Developer',
-          period: 'Nov 2025 · Mar 2026',
+          period: 'Nov 2025 -> Mar 2026',
           bullets: [
             'Full-stack with C#, .NET, ASP.NET MVC, JavaScript, Vue.js, ReactJS and SQL/Oracle',
             'Banking integrations: remittance/return files and financial reconciliation',
@@ -156,7 +201,7 @@ export const translations: Record<Lang, Locale> = {
         {
           company: 'Quick Soft Tecnologia',
           role: 'Junior Software Developer',
-          period: 'Jan 2023 · Nov 2025',
+          period: 'Jan 2023 -> Nov 2025',
           bullets: [
             'Full-stack development of internal systems and banking integrations',
             'System integration to automate data flows',
@@ -166,7 +211,7 @@ export const translations: Record<Lang, Locale> = {
         {
           company: 'Quick Soft Tecnologia',
           role: 'Software Developer Intern',
-          period: 'Jun 2022 · Jan 2023',
+          period: 'Jun 2022 -> Jan 2023',
           bullets: [
             'First professional experience: internal tools and client-facing products',
             'APIs, OOP, Design Patterns and Scrum with Git and Azure DevOps',
@@ -175,7 +220,7 @@ export const translations: Record<Lang, Locale> = {
         {
           company: 'JMA Tecnologia LTDA',
           role: 'Mobile Developer (Freelancer)',
-          period: 'Jul 2025 · Nov 2025',
+          period: 'Jul 2025 -> Nov 2025',
           bullets: [
             'Maintenance and evolution of two mobile apps in React Native',
             'Bug fixes, new features and UI/UX improvements, 100% remote',
@@ -183,11 +228,22 @@ export const translations: Record<Lang, Locale> = {
         },
       ],
     },
+    project: {
+      label: 'Project',
+      title: 'One project, no showroom.',
+      lead: 'I would rather show one than list ten.',
+      name: 'This site',
+      description:
+        'My public lab: React 19, TypeScript and stubbornness about performance. No template, no page builder, no UI framework.',
+      stack: ['React 19', 'TypeScript', 'Vite', 'Cloudflare Pages'],
+      link: 'Read the code',
+    },
     contact: {
       label: 'Contact',
-      title: "Let's talk.",
+      title: 'Got a manual process to kill?',
       email: 'Email',
       linkedin: 'LinkedIn',
+      note: 'I reply in Portuguese and English.',
     },
     footer: { switcher: 'Language' },
   },

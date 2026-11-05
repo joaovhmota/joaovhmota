@@ -2,6 +2,7 @@ export const SECTION_ID = {
   about: 'sobre',
   skills: 'skills',
   experience: 'experiencia',
+  project: 'projeto',
   contact: 'contato',
 } as const;
 

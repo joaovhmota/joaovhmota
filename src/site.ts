@@ -10,4 +10,5 @@ export const site = {
     'pt-BR': 'https://storage.joaovhmota.dev/Curr%C3%ADculo%20-%20Jo%C3%A3o%20V.%20H.%20Mota%20-%20Vers%C3%A3o%20portuguesa.pdf',
     'en-US': 'https://storage.joaovhmota.dev/Curriculum%20-%20Jo%C3%A3o%20V.%20H.%20Mota%20-%20English%20version.pdf',
   } satisfies Record<Lang, string>,
+  projectUrl: 'https://github.com/joaovhmota/joaovhmota',
 } as const;

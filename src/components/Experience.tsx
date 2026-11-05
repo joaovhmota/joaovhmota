@@ -5,33 +5,23 @@ import Section from './Section';
 export default function Experience() {
   const { t } = useI18n();
   return (
-    <Section id={SECTION_ID.experience} label={t.experience.label} title={t.experience.title}>
-      <div style={{ display: 'grid', gap: 24 }}>
-        {t.experience.roles.map((r, i) => (
+    <Section id={SECTION_ID.experience} index="03" label={t.experience.label} title={t.experience.title}>
+      <div className="timeline">
+        {t.experience.roles.map((role) => (
           <article
-            key={i}
-            className={`card card--spacious${r.highlight ? ' card--highlight' : ''}`}
+            key={`${role.role}-${role.period}`}
+            className={`card card--spacious timeline__item${role.highlight ? ' is-current' : ''}`}
           >
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                flexWrap: 'wrap',
-                gap: 8,
-                marginBottom: 16,
-              }}
-            >
+            <header className="role__head">
               <div>
-                <h3 style={{ fontSize: 18, fontWeight: 600 }}>{r.role}</h3>
-                <p style={{ color: 'var(--text-muted)', fontSize: 14 }}>{r.company}</p>
+                <h3 className="role__title">{role.role}</h3>
+                <p className="role__company">{role.company}</p>
               </div>
-              <span style={{ fontSize: 13, color: 'var(--text-muted)' }}>{r.period}</span>
-            </div>
-            <ul style={{ paddingLeft: 20, display: 'grid', gap: 6 }}>
-              {r.bullets.map((b) => (
-                <li key={b} style={{ color: 'var(--text-muted)', fontSize: 14 }}>
-                  {b}
-                </li>
+              <span className="role__period mono">{role.period}</span>
+            </header>
+            <ul className="role__bullets">
+              {role.bullets.map((bullet) => (
+                <li key={bullet}>{bullet}</li>
               ))}
             </ul>
           </article>

@@ -9,15 +9,28 @@ export default function Contact() {
     { label: t.contact.email, value: site.email, href: `mailto:${site.email}` },
     { label: t.contact.linkedin, value: site.linkedin, href: site.linkedinUrl },
   ];
+
   return (
-    <Section id={SECTION_ID.contact} label={t.contact.label} title={t.contact.title}>
-      <div style={{ display: 'grid', gap: 12, maxWidth: 560 }}>
-        {links.map((l) => (
-          <a key={l.label} href={l.href} target="_blank" rel="noreferrer" className="card card--row">
-            <span style={{ color: 'var(--text-muted)' }}>{l.label}</span>
-            <span style={{ color: 'var(--accent)' }}>{l.value} →</span>
-          </a>
-        ))}
+    <Section id={SECTION_ID.contact} index="05" label={t.contact.label} title={t.contact.title}>
+      <div className="contact">
+        <p className="contact__note">{t.contact.note}</p>
+        <div className="contact__links">
+          {links.map((link) => (
+            <a
+              key={link.label}
+              href={link.href}
+              target="_blank"
+              rel="noreferrer"
+              className="card card--row contact__link"
+            >
+              <span>{link.label}</span>
+              <span className="contact__value">
+                {link.value}
+                <span aria-hidden>-&gt;</span>
+              </span>
+            </a>
+          ))}
+        </div>
       </div>
     </Section>
   );

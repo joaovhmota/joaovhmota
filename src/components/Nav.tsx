@@ -1,75 +1,54 @@
-import { useEffect, useRef, useState } from 'react';
 import { useI18n } from '../i18n/useI18n';
 import { SECTION_ID } from '../sections';
+import { site } from '../site';
 
-const NAV_ITEMS = [SECTION_ID.about, SECTION_ID.skills, SECTION_ID.experience, SECTION_ID.contact] as const;
+const NAV_ITEMS = [
+  SECTION_ID.about,
+  SECTION_ID.skills,
+  SECTION_ID.experience,
+  SECTION_ID.project,
+  SECTION_ID.contact,
+] as const;
 
 function scrollTo(id: string) {
   document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
 }
 
 export default function Nav() {
-  const { t } = useI18n();
-  const ref = useRef<HTMLElement>(null);
-  const [stuck, setStuck] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => {
-      if (ref.current) {
-        setStuck(window.scrollY > window.innerHeight - 64);
-      }
-    };
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
+  const { lang, setLang, t } = useI18n();
 
   return (
-    <>
-      {stuck && <div style={{ height: 64 }} />}
-      <header
-        ref={ref}
-        style={{
-          position: stuck ? 'fixed' : 'sticky',
-          top: 0,
-          left: 0,
-          right: 0,
-          zIndex: 10,
-          backdropFilter: 'blur(12px)',
-          background: 'rgba(10, 10, 11, 0.72)',
-          borderBottom: '1px solid var(--border)',
-        }}
-      >
-      <nav
-        className="container"
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          gap: 32,
-          height: 64,
-          fontSize: 14,
-          color: 'var(--text-muted)',
-        }}
-      >
-        {NAV_ITEMS.map((id) => (
-          <button
-            key={id}
-            onClick={() => scrollTo(id)}
-            style={{
-              cursor: 'pointer',
-              background: 'none',
-              border: 'none',
-              color: 'inherit',
-              font: 'inherit',
-              padding: 0,
-            }}
-          >
-            {t.nav[id]}
-          </button>
-        ))}
-      </nav>
-      </header>
-    </>
+    <header className="nav">
+      <div className="container nav__inner">
+        <button
+          className="nav__brand"
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          aria-label={site.name}
+        >
+          joao@dev:~
+        </button>
+
+        <nav className="nav__links">
+          {NAV_ITEMS.map((id) => (
+            <button key={id} className="nav__link" onClick={() => scrollTo(id)}>
+              {t.nav[id]}
+            </button>
+          ))}
+        </nav>
+
+        <div className="nav__lang" role="group" aria-label={t.footer.switcher}>
+          {(['pt-BR', 'en-US'] as const).map((value) => (
+            <button
+              key={value}
+              className={value === lang ? 'is-active' : undefined}
+              aria-pressed={value === lang}
+              onClick={() => setLang(value)}
+            >
+              {value === 'pt-BR' ? 'PT' : 'EN'}
+            </button>
+          ))}
+        </div>
+      </div>
+    </header>
   );
 }

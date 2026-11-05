@@ -5,10 +5,18 @@ import Section from './Section';
 export default function About() {
   const { t } = useI18n();
   return (
-    <Section id={SECTION_ID.about} label={t.about.label} title={t.about.title}>
-      <p style={{ color: 'var(--text-muted)', maxWidth: 720, fontSize: 17 }}>
-        {t.about.text}
-      </p>
+    <Section id={SECTION_ID.about} index="01" label={t.about.label} title={t.about.title}>
+      <div className="about">
+        <p className="about__text">{t.about.text}</p>
+        <dl className="about__facts">
+          {t.about.facts.map((fact) => (
+            <div key={fact.label}>
+              <dt className="mono">{fact.label}</dt>
+              <dd>{fact.value}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
     </Section>
   );
 }

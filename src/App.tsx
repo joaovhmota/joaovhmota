@@ -5,6 +5,7 @@ import Hero from './components/Hero';
 import About from './components/About';
 import Skills from './components/Skills';
 import Experience from './components/Experience';
+import Project from './components/Project';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 
@@ -12,14 +13,13 @@ export default function App() {
   useReveal();
   return (
     <I18nProvider>
+      <Nav />
       <main>
-        <div style={{ display: 'flex', flexDirection: 'column', height: '100dvh' }}>
-          <Hero />
-          <Nav />
-        </div>
+        <Hero />
         <About />
         <Skills />
         <Experience />
+        <Project />
         <Contact />
       </main>
       <Footer />

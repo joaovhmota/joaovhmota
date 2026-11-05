@@ -27,59 +27,32 @@ export default function Hero() {
   };
 
   return (
-    <section
-      id="top"
-      style={{
-        borderTop: 'none',
-        flex: 1,
-        display: 'flex',
-        alignItems: 'center',
-        position: 'relative',
-        overflow: 'hidden',
-      }}
-    >
-      <div
-        style={{
-          position: 'absolute',
-          top: '30%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          width: 600,
-          height: 600,
-          background: 'radial-gradient(circle, rgba(94, 234, 212, 0.07) 0%, transparent 70%)',
-          pointerEvents: 'none',
-        }}
-      />
-      <div className="container" style={{ textAlign: 'center' }}>
-        <h1
-          className="hero-title"
-          style={{
-            fontSize: 'clamp(28px, 6vw, 72px)',
-            fontWeight: 600,
-            letterSpacing: '-0.04em',
-            lineHeight: 1.05,
-            whiteSpace: 'nowrap',
-            margin: '0 auto',
-          }}
-        >
-          {site.name}
-        </h1>
-        <p
-          className="hero-sub"
-          style={{ color: 'var(--text-muted)', maxWidth: 560, margin: '24px auto 0', fontSize: 20 }}
-        >
-          {t.hero.subtitle}
-        </p>
-        <a
-          href={site.resume[lang]}
-          className="btn"
-          onClick={(e) => {
-            e.preventDefault();
-            void downloadResume();
-          }}
-        >
-          {t.hero.resume}
-        </a>
+    <section id="top" className="hero">
+      <div className="container hero__inner">
+        <div className="hero__content">
+          <p className="hero__eyebrow mono"># {t.hero.eyebrow}</p>
+          <p className="hero__prompt mono">
+            <span aria-hidden>$</span> whoami
+            <span className="cursor" aria-hidden />
+          </p>
+          <h1 className="hero__title">{site.name}</h1>
+          <p className="hero__sub">{t.hero.subtitle}</p>
+          <a
+            href={site.resume[lang]}
+            className="btn"
+            onClick={(event) => {
+              event.preventDefault();
+              void downloadResume();
+            }}
+          >
+            {t.hero.resume}
+          </a>
+          <ul className="hero__meta mono">
+            {t.hero.meta.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        </div>
       </div>
     </section>
   );
